@@ -1,0 +1,133 @@
+-- MySQL dump 10.13  Distrib 5.7.21, for Linux (x86_64)
+--
+-- Host: localhost    Database: db_exercicio
+-- ------------------------------------------------------
+-- Server version	5.7.21-0ubuntu0.16.04.1
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `Cargo`
+--
+
+DROP TABLE IF EXISTS `Cargo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Cargo` (
+  `Cod_cargo` int(11) NOT NULL,
+  `nome` varchar(20) DEFAULT NULL,
+  `salario_base` float DEFAULT NULL,
+  PRIMARY KEY (`Cod_cargo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Cargo`
+--
+
+LOCK TABLES `Cargo` WRITE;
+/*!40000 ALTER TABLE `Cargo` DISABLE KEYS */;
+INSERT INTO `Cargo` VALUES (1,'Gerente de Projeto',10),(2,'Estagiario',520),(3,'Analista Junior',2.1);
+/*!40000 ALTER TABLE `Cargo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Dependente`
+--
+
+DROP TABLE IF EXISTS `Dependente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Dependente` (
+  `Cod_dep` int(11) NOT NULL,
+  `Cod_func` int(11) NOT NULL,
+  `nome` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`Cod_dep`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Dependente`
+--
+
+LOCK TABLES `Dependente` WRITE;
+/*!40000 ALTER TABLE `Dependente` DISABLE KEYS */;
+INSERT INTO `Dependente` VALUES (1,1,'joao');
+/*!40000 ALTER TABLE `Dependente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Empregado`
+--
+
+DROP TABLE IF EXISTS `Empregado`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Empregado` (
+  `Cod_func` int(11) NOT NULL,
+  `nome_func` varchar(20) NOT NULL,
+  `email` varchar(20) DEFAULT NULL,
+  `cod_cargo` int(11) NOT NULL,
+  `salario` float DEFAULT NULL,
+  PRIMARY KEY (`Cod_func`),
+  KEY `cod_cargo` (`cod_cargo`),
+  CONSTRAINT `Empregado_ibfk_1` FOREIGN KEY (`cod_cargo`) REFERENCES `Cargo` (`Cod_cargo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Empregado`
+--
+
+LOCK TABLES `Empregado` WRITE;
+/*!40000 ALTER TABLE `Empregado` DISABLE KEYS */;
+INSERT INTO `Empregado` VALUES (1,'Lucas','lucas@hotwels.com',2,2400),(2,'Leo','leo@gmeil.com',1,11.5),(3,'Joel','joelzon@ifelse.com',3,520),(4,'Leo','leo@gmeil.com',1,11500);
+/*!40000 ALTER TABLE `Empregado` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Historico`
+--
+
+DROP TABLE IF EXISTS `Historico`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Historico` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `operacao` varchar(20) DEFAULT NULL,
+  `cod_func` int(11) NOT NULL,
+  `nome_func` varchar(20) DEFAULT NULL,
+  `data` date DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Historico`
+--
+
+LOCK TABLES `Historico` WRITE;
+/*!40000 ALTER TABLE `Historico` DISABLE KEYS */;
+INSERT INTO `Historico` VALUES (1,'venda',1,'Lucas','2018-03-13');
+/*!40000 ALTER TABLE `Historico` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2018-03-13 19:46:02
